@@ -1,0 +1,760 @@
+body{
+
+    margin:0;
+    background:#000;
+    overflow:hidden;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    height:100vh;
+
+    font-family:Georgia, serif;
+
+}
+#intro{
+
+    position:absolute;
+    text-align:center;
+
+}
+.introText{
+
+    color:#7fd6ff;
+
+    font-size:50px;
+
+    font-style:italic;
+
+    opacity:0;
+
+    transition:opacity 1.5s;
+
+}
+.hidden{
+
+    opacity:0;
+
+    pointer-events:none;
+
+    display:none;
+
+}
+
+#game{
+
+    opacity:0;
+
+    transform:scale(.6);
+
+    transition:
+
+        opacity 2.5s ease,
+
+        transform 2.5s ease;
+
+}
+#game.show{
+
+    opacity:1;
+
+    transform:scale(1);
+
+}
+
+#ball{
+
+    width:380px;
+    height:380px;
+
+    border-radius:50%;
+
+    cursor:pointer;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    background:
+    radial-gradient(circle at 30% 25%,
+    #555 0%,
+    #111 30%,
+    #000 75%);
+
+    box-shadow:
+
+    inset -25px -35px 40px rgba(255,255,255,.05),
+
+    inset 30px 40px 70px rgba(255,255,255,.08),
+
+    0 0 70px rgba(0,0,0,.8);
+
+    position:relative;
+
+    animation:         
+        glow 5s ease-in-out infinite,
+        float 4s ease-in-out infinite;
+
+}
+#ball::before{
+
+    content:"";
+
+    position:absolute;
+
+    width:130px;
+    height:70px;
+
+    top:45px;
+    left:60px;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.15);
+
+    transform:rotate(-25deg);
+
+    filter: drop-shadow(0 0 40px rgba(100,180,255,.45));
+
+
+}
+
+#window{
+
+    width:140px;
+    height:120px;
+
+    background:linear-gradient(#5cb8ff,#123bff);
+
+    clip-path:polygon(50% 0%,0% 100%,100% 100%);
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    box-shadow:0 0 35px #4da6ff;
+
+    position:relative;
+
+}
+#answer{
+
+    color:white;
+
+    font-weight:bold;
+
+    text-align:center;
+
+    width:80px;
+
+    position:absolute;
+
+    top:65px;
+
+}
+
+
+@keyframes glow{
+
+    0%{
+        filter:drop-shadow(0 0 10px rgba(120,200,255,.2));
+    }
+
+    50%{
+        filter:drop-shadow(0 0 45px rgba(120,200,255,.6));
+    }
+
+    100%{
+        filter:drop-shadow(0 0 10px rgba(120,200,255,.2));
+    }
+
+}
+@keyframes float {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-10px); }
+    100% { transform: translateY(0px); }
+}
+
+#answer {
+    color: white;
+    font-weight: bold;
+    text-align: center;
+    width: 80px;
+}
+#stars{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    background-image:
+    radial-gradient(white 1px, transparent 1px),
+    radial-gradient(#7fd6ff 1px, transparent 1px);
+
+    background-size:
+    80px 80px,
+    120px 120px;
+
+    background-position:
+    0 0,
+    40px 60px;
+
+    animation: drift 40s linear infinite;
+
+    opacity:0;
+
+    transition:opacity 3s;
+
+    z-index:-1;
+
+    pointer-events:none;
+
+}
+
+
+#stars.visible{
+
+    opacity:.6;
+
+}
+
+
+
+@keyframes drift{
+
+    from{
+        transform:translateY(0);
+    }
+
+    to{
+        transform:translateY(200px);
+    }
+
+}
+#heavenScene.hidden{
+    display:none;
+}
+
+#heavenScene{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    text-align:center;
+
+    color:#b8ecff;
+
+    font-family:Georgia, serif;
+
+    z-index:5;
+
+}
+
+
+#heavenLight{
+
+    position:absolute;
+
+    top:-200px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:500px;
+
+    height:700px;
+
+    background:
+
+    linear-gradient(
+        to bottom,
+        rgba(220,250,255,.9),
+        rgba(120,220,255,.1),
+        transparent
+    );
+
+    filter:blur(30px);
+
+    opacity:0;
+
+}
+
+
+.heavenBeam{
+
+    animation: heavenlyLight 4s forwards;
+
+}
+
+
+@keyframes heavenlyLight{
+
+    0%{
+        opacity:0;
+        transform:translateX(-50%) translateY(-100px);
+    }
+
+    50%{
+        opacity:1;
+    }
+
+    100%{
+        opacity:.8;
+        transform:translateX(-50%) translateY(0);
+    }
+
+}
+
+
+#heavenTop{
+
+    position:absolute;
+
+    top:90px;
+
+    width:100%;
+
+    opacity:0;
+
+}
+
+
+#heavenBottom{
+
+    position:absolute;
+
+    top:650px;
+
+    width:100%;
+
+    opacity:0;
+
+}
+
+
+#heavenMessage1{
+
+    position:absolute;
+
+    top:720px;
+
+    width:100%;
+
+    padding:0 50px;
+
+    box-sizing:border-box;
+
+    opacity:0;
+
+}
+
+
+#heavenMessage2{
+
+    position:absolute;
+
+    top:820px;
+
+    width:100%;
+
+    padding:0 50px;
+
+    box-sizing:border-box;
+
+    opacity:0;
+
+}
+
+
+.heavenFade{
+
+    animation:fadeText 2s forwards;
+
+}
+
+
+@keyframes fadeText{
+
+    from{
+        opacity:0;
+    }
+
+    to{
+        opacity:1;
+    }
+
+}
+
+/* ======================
+        HELL SCENE
+====================== */
+
+
+#hellScene{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    text-align:center;
+
+    color:#ff5c33;
+
+    font-family:Georgia, serif;
+
+    z-index:5;
+
+}
+
+
+#hellTop{
+
+    position:absolute;
+
+    top:90px;
+
+    width:100%;
+
+    opacity:0;
+
+}
+
+
+#hellBottom{
+
+    position:absolute;
+
+    top:650px;
+
+    width:100%;
+
+    opacity:0;
+
+}
+
+
+#hellMessage1{
+
+    position:absolute;
+
+    top:720px;
+
+    width:100%;
+
+    padding:0 50px;
+
+    box-sizing:border-box;
+
+    opacity:0;
+
+}
+
+
+#hellMessage2{
+
+    position:absolute;
+
+    top:820px;
+
+    width:100%;
+
+    opacity:0;
+
+}
+
+
+.hellFade{
+
+    animation:hellFade 2s forwards;
+
+}
+
+
+@keyframes hellFade{
+
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+
+}
+
+
+/* FIRE */
+
+#fireLeft,
+#fireRight{
+
+    position:absolute;
+
+    bottom:0;
+
+    width:250px;
+
+    height:100%;
+
+    background:
+
+    radial-gradient(
+        ellipse at bottom,
+        #ffff66,
+        #ff6600 30%,
+        #990000 60%,
+        transparent 75%
+    );
+
+    filter:blur(15px);
+
+    animation:firePulse 1s infinite alternate;
+
+}
+
+
+#fireLeft{
+
+    left:-100px;
+
+}
+
+
+#fireRight{
+
+    right:-100px;
+
+}
+
+
+@keyframes firePulse{
+
+    from{
+
+        transform:scaleY(.9);
+
+        opacity:.7;
+
+    }
+
+    to{
+
+        transform:scaleY(1.1);
+
+        opacity:1;
+
+    }
+
+}
+/* ======================
+        LIMBO SCENE
+====================== */
+
+
+#limboScene{
+
+    position:absolute;
+
+    width:100%;
+    height:100%;
+
+    text-align:center;
+
+    color:#cfcfcf;
+
+    font-family:Georgia, serif;
+
+    z-index:5;
+
+}
+
+
+#limboTop{
+
+    position:absolute;
+
+    top:90px;
+
+    width:100%;
+
+    opacity:0;
+
+}
+
+
+#limboBottom{
+
+    position:absolute;
+
+    top:650px;
+
+    width:100%;
+
+    opacity:0;
+
+}
+
+
+#limboMessage1{
+
+    position:absolute;
+
+    top:720px;
+
+    width:100%;
+
+    padding:0 50px;
+
+    box-sizing:border-box;
+
+    opacity:0;
+
+}
+
+
+#limboMessage2{
+
+    position:absolute;
+
+    top:820px;
+
+    width:100%;
+
+    opacity:0;
+
+}
+
+
+.limboFade{
+
+    animation:limboFade 2s forwards;
+
+}
+
+
+@keyframes limboFade{
+
+    from{
+
+        opacity:0;
+
+        filter:blur(10px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        filter:blur(0);
+
+    }
+
+}
+/* ======================
+        LIMBO FOG
+====================== */
+
+
+#limboFog{
+
+    position:absolute;
+
+    width:140%;
+
+    height:100%;
+
+    left:-20%;
+
+    top:0;
+
+
+    background:
+
+    radial-gradient(
+        ellipse at center,
+        rgba(220,220,220,.18),
+        transparent 60%
+    ),
+
+    radial-gradient(
+        ellipse at 30% 50%,
+        rgba(255,255,255,.12),
+        transparent 55%
+    ),
+
+    radial-gradient(
+        ellipse at 80% 40%,
+        rgba(180,180,180,.15),
+        transparent 50%
+    );
+
+
+    filter:blur(40px);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    z-index:-1;
+
+}
+
+
+.limboFogActive{
+
+    animation:
+
+    fogAppear 3s forwards,
+
+    fogMove 25s linear infinite;
+
+}
+
+
+
+@keyframes fogAppear{
+
+    from{
+
+        opacity:0;
+
+    }
+
+    to{
+
+        opacity:1;
+
+    }
+
+}
+
+
+
+@keyframes fogMove{
+
+    from{
+
+        transform:translateX(-5%);
+
+    }
+
+    to{
+
+        transform:translateX(5%);
+
+    }
+
+}
+
+

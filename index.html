@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic 8 Ball</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+<div id="intro">
+
+    <h1 id="line1" class="introText">
+        Welcome to the Afterlife
+    </h1>
+
+    <h1 id="line2" class="introText hidden">
+        Please shake the Magic 8 Ball...
+    </h1>
+
+    <h1 id="line3" class="introText hidden">
+        and see where your 20's have sent you
+    </h1>
+
+</div>
+
+<div id="stars"></div>
+
+<div id="game" class="hidden">
+
+    <div id="ball">
+        <div id="window">
+            <span id="answer">Reveal My Fate</span>
+        </div>
+    </div>
+
+</div>
+
+<div id="heavenScene" class="hidden">
+
+    <div id="heavenLight"></div>
+
+    <h2 id="heavenTop">
+        Wow, you've never done one naughty thing.
+    </h2>
+
+    <h2 id="heavenBottom">
+        Well done, and welcome to Heaven.
+    </h2>
+
+    <h2 id="heavenMessage1">
+        Please don your freshest whites and wings when entering the Afterlife celebration.
+    </h2>
+
+    <h2 id="heavenMessage2">
+        We look forward to your new eternity.
+    </h2>
+
+</div>
+<div id="hellScene" class="hidden">
+
+    <div id="fireLeft"></div>
+    <div id="fireRight"></div>
+
+    <h2 id="hellTop">
+        You... have...been...THE NAUGHTIEST 20 something year old....
+    </h2>
+
+    <h2 id="hellBottom">
+        It's the hell hole for you scum!
+    </h2>
+
+    <h2 id="hellMessage1">
+        Please don only red, horned, or winged attire when entering the Afterlife celebration.
+    </h2>
+
+    <h2 id="hellMessage2">
+        We look forward to your new eternity.
+    </h2>
+
+</div>
+<div id="limboScene" class="hidden">
+
+    <div id="limboFog"></div>
+    
+    <h2 id="limboTop">
+        Ehh you're kind of a mixed bag
+    </h2>
+
+    <h2 id="limboBottom">
+        Time to do the limbo and head down to Limbo.
+    </h2>
+
+    <h2 id="limboMessage1">
+        Please don all black when entering the Afterlife celebration.
+    </h2>
+
+    <h2 id="limboMessage2">
+        We look forward to your new eternity.
+    </h2>
+
+</div>
+
+
+<audio id="intro_church" loop>
+    <source src="sounds/intro.mp3">
+</audio>
+
+<audio id="shakeSound">
+    <source src="sounds/shake.mp3">
+</audio>
+
+<audio id="angelSound">
+    <source src="sounds/angels.mp3">
+</audio>
+
+<audio id="hellSound">
+    <source src="sounds/what_the_hell.mp3">
+</audio>
+
+<audio id="limboSound">
+    <source src="sounds/limbo.mp3">
+</audio>
+
+<audio id="doomed">
+    <source src="sounds/doomed_cackle.mp3">
+</audio>
+
+<audio id="huh">
+    <source src="sounds/huh.mp3">
+</audio>
+
+<script src="script.js"></script>
+
+
+</html>
