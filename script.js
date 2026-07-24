@@ -77,16 +77,28 @@ setTimeout(() => {
 
 }, 12000);
 /////////////
-document.addEventListener("click", () => {
+function unlockAudio() {
 
-    if (intro_church.paused) {
+    [
+        intro_church,
+        shakeSound,
+        angelSound,
+        hellSound,
+        limboSound,
+        doomed,
+        huh
+    ].forEach(audio => {
+        audio.load();
+    });
 
-        intro_church.volume = 0.4;
-        intro_church.play();
+    intro_church.volume = 0.4;
 
-    }
+    intro_church.play().catch(() => {});
 
-    }, {once:true});
+}
+
+document.addEventListener("pointerdown", unlockAudio, { once: true });
+
 
 // ---------------------- 
 // Limbo Scene Function 
@@ -453,8 +465,6 @@ if(result === "Limbo"){
     }, 1200);
 
 });
-
-
 
 
 
