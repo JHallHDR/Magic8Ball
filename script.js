@@ -79,6 +79,8 @@ setTimeout(() => {
 /////////////
 function unlockAudio() {
 
+    alert("unlockAudio ran");
+
     [
         intro_church,
         shakeSound,
@@ -94,7 +96,6 @@ function unlockAudio() {
     intro_church.volume = 0.4;
 
     intro_church.play().catch(() => {});
-
 }
 
 document.addEventListener("pointerdown", unlockAudio, { once: true });
