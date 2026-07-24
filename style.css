@@ -2,14 +2,12 @@ body{
 
     margin:0;
     background:#000;
-    overflow:hidden;
-
+    overflow-x:hidden;
+    overflow-y:auto;
+    min-height:100vh;
     display:flex;
     justify-content:center;
     align-items:center;
-
-    height:100vh;
-
     font-family:Georgia, serif;
 
 }
@@ -23,7 +21,7 @@ body{
 
     color:#7fd6ff;
 
-    font-size:50px;
+    font-size: clamp(1.8rem, 6vw, 3rem);
 
     font-style:italic;
 
@@ -360,7 +358,7 @@ body{
 
     position:absolute;
 
-    top:820px;
+    top:800px;
 
     width:100%;
 
@@ -462,7 +460,7 @@ body{
 
     position:absolute;
 
-    top:820px;
+    top:800px;
 
     width:100%;
 
@@ -626,7 +624,7 @@ body{
 
     position:absolute;
 
-    top:820px;
+    top:800px;
 
     width:100%;
 
@@ -757,4 +755,88 @@ body{
 
 }
 
+/* ======================
+   MOBILE OPTIMIZATION
+====================== */
 
+@media (max-width: 768px) {
+
+    body{
+        overflow-y:auto;
+        overflow-x:hidden;
+        min-height:100vh;
+        height:auto;
+        padding:20px;
+        box-sizing:border-box;
+    }
+
+    .introText{
+        font-size:clamp(1.4rem,7vw,2.2rem);
+        padding:0 15px;
+    }
+
+    #ball{
+        width:280px;
+        height:280px;
+    }
+
+    #window{
+        width:105px;
+        height:90px;
+    }
+
+    #answer{
+        width:65px;
+        top:48px;
+        font-size:.9rem;
+    }
+
+    /* Heaven */
+
+    #heavenTop,
+    #hellTop,
+    #limboTop{
+        top:35px;
+        font-size:2rem;
+        padding:0 20px;
+        box-sizing:border-box;
+    }
+
+    #heavenBottom,
+    #hellBottom,
+    #limboBottom{
+        top:360px;
+        font-size:1.5rem;
+        padding:0 20px;
+        box-sizing:border-box;
+    }
+
+    #heavenMessage1,
+    #hellMessage1,
+    #limboMessage1{
+        top:430px;
+        font-size:1rem;
+        padding:0 25px;
+        line-height:1.5;
+    }
+
+    #heavenMessage2,
+    #hellMessage2,
+    #limboMessage2{
+        top:510px;
+        font-size:1rem;
+        padding:0 25px;
+        line-height:1.5;
+    }
+
+    #heavenLight{
+        width:320px;
+        height:500px;
+    }
+
+    #fireLeft,
+    #fireRight{
+        width:150px;
+    }
+
+}
