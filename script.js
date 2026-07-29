@@ -24,81 +24,128 @@ const ball = document.getElementById("ball");
 const answer = document.getElementById("answer");
 
 // ----------------------
-// Intro Sequence
+// Audio Setup
 // ----------------------
 
-// Show Line 1
-line1.style.opacity = 1;
+const allAudio = [
+    intro_church,
+    shakeSound,
+    angelSound,
+    hellSound,
+    limboSound,
+    doomed,
+    huh
+];
 
-// Hide Line 1
-setTimeout(() => {
-    line1.style.opacity = 0;
-}, 2500);
+let audioUnlocked = false;
+let introStarted = false;
 
-// Show Line 2
-setTimeout(() => {
-    line1.style.display = "none";
-
-    line2.classList.remove("hidden");
-    line2.style.opacity = 1;
-}, 4000);
-
-// Hide Line 2
-setTimeout(() => {
-    line2.style.opacity = 0;
-}, 6500);
-
-// Show Line 3
-setTimeout(() => {
-    line2.style.display = "none";
-
-    line3.classList.remove("hidden");
-    line3.style.opacity = 1;
-}, 8000);
-
-// Hide Line 3
-setTimeout(() => {
-    line3.style.opacity = 0;
-}, 10500);
-
-// Show the Magic 8 Ball
-setTimeout(() => {
-intro.style.display = "none";
-
-game.classList.remove("hidden");
-
-setTimeout(() => {
-
-    game.classList.add("show");
-    document.getElementById("stars").classList.add("visible");
-
-},100);
-
-
-}, 12000);
-/////////////
 function unlockAudio() {
 
-    alert("unlockAudio ran");
+    if (audioUnlocked) return;
 
-    [
-        intro_church,
-        shakeSound,
-        angelSound,
-        hellSound,
-        limboSound,
-        doomed,
-        huh
-    ].forEach(audio => {
+    audioUnlocked = true;
+
+    allAudio.forEach(audio => {
+
         audio.load();
+
+        audio.muted = true;
+
+        audio.play()
+            .then(() => {
+                audio.pause();
+                audio.currentTime = 0;
+                audio.muted = false;
+            })
+            .catch(() => {});
+
     });
 
     intro_church.volume = 0.4;
-
-    intro_church.play().catch(() => {});
 }
 
-document.addEventListener("pointerdown", unlockAudio, { once: true });
+function startIntro() {
+
+    if (introStarted) return;
+
+    introStarted = true;
+
+    intro_church.currentTime = 0;
+
+    intro_church.play().catch(() => {});
+
+    // Show Line 1
+    line1.style.opacity = 1;
+
+    // Hide Line 1
+    setTimeout(() => {
+        line1.style.opacity = 0;
+    }, 2500);
+
+    // Show Line 2
+    setTimeout(() => {
+
+        line1.style.display = "none";
+
+        line2.classList.remove("hidden");
+        line2.style.opacity = 1;
+
+    }, 4000);
+
+    // Hide Line 2
+    setTimeout(() => {
+
+        line2.style.opacity = 0;
+
+    }, 6500);
+
+    // Show Line 3
+    setTimeout(() => {
+
+        line2.style.display = "none";
+
+        line3.classList.remove("hidden");
+        line3.style.opacity = 1;
+
+    }, 8000);
+
+    // Hide Line 3
+    setTimeout(() => {
+
+        line3.style.opacity = 0;
+
+    }, 10500);
+
+    // Reveal the Magic 8 Ball
+    setTimeout(() => {
+
+        intro.style.display = "none";
+
+        game.classList.remove("hidden");
+
+        setTimeout(() => {
+
+            game.classList.add("show");
+            document.getElementById("stars").classList.add("visible");
+
+        }, 100);
+
+    }, 12000);
+
+}
+
+function firstInteraction() {
+
+    unlockAudio();
+
+    startIntro();
+
+}
+
+document.addEventListener("click", firstInteraction, { once: true });
+document.addEventListener("touchstart", firstInteraction, { once: true });
+
 
 
 // ---------------------- 
@@ -326,8 +373,9 @@ function startHeavenScene(){
 // ----------------------
 
 ball.addEventListener("click", () => {
-shakeSound.currentTime = 0;
-shakeSound.play();
+
+    shakeSound.currentTime = 0;
+    shakeSound.play().catch(() => {});
 
     ball.animate(
         [
@@ -347,123 +395,69 @@ shakeSound.play();
     answer.textContent = "...";
 
     setTimeout(() => {
-        // TEST MODE
+
         const randomIndex = Math.floor(Math.random() * answers.length);
         const result = answers[randomIndex];
-       
 
-answer.textContent = result;
+        answer.textContent = result;
 
+        // Stop all previous sounds
+        [
+            angelSound,
+            hellSound,
+            limboSound,
+            doomed,
+            huh
+        ].forEach(audio => {
 
+            audio.pause();
+            audio.currentTime = 0;
 
-// Stop previous outcome sounds
-angelSound.pause();
-hellSound.pause();
-limboSound.pause();
-doomed.pause();
-huh.pause();
+        });
 
-angelSound.currentTime = 0;
-hellSound.currentTime = 0;
-limboSound.currentTime = 0;
-doomed.currentTime = 0;
-huh.currentTime = 0;
+        if(result === "Heaven"){
 
+            angelSound.volume = .7;
 
-// Play matching sound
+            angelSound.play().catch(() => {});
 
-if(result === "Heaven"){
+            startHeavenScene();
 
-    angelSound.volume = .7;
-    angelSound.play();
+        }
 
-    startHeavenScene();
-     // First two lines appear
+        else if(result === "Hell"){
 
-    setTimeout(()=>{
+            hellSound.volume = .8;
 
-        topText.classList.add("heavenFade");
+            hellSound.play().catch(() => {});
 
-        bottomText.classList.add("heavenFade");
+            setTimeout(() => {
 
-    },2000);
+                doomed.volume = .7;
 
+                doomed.play().catch(() => {});
 
-    // Remove first two lines
+            },2000);
 
-    setTimeout(()=>{
+            startHellScene();
 
-        topText.style.opacity=0;
+        }
 
-        bottomText.style.opacity=0;
+        else{
 
-    },6000);
+            limboSound.volume = .5;
 
+            limboSound.play().catch(() => {});
 
-    // Third line
+            huh.volume = .7;
 
-    setTimeout(()=>{
+            huh.play().catch(() => {});
 
-        message1.classList.add("heavenFade");
+            startLimboScene();
 
-    },7000);
+        }
 
-
-    // Remove third line
-
-    setTimeout(()=>{
-
-        message1.style.opacity=0;
-
-    },11000);
-
-
-    // Final line
-
-    setTimeout(()=>{
-
-        message2.classList.add("heavenFade");
-
-    },12000);
-   
-
-}
-
-
-if(result === "Hell"){
-
-    hellSound.volume = .8;
-    hellSound.play();
-
-    setTimeout(() => {
-
-        doomed.volume = .7;
-        doomed.play();
-
-    }, 2000);
-
-    startHellScene();
-
-}
-
-
-
-
-if(result === "Limbo"){
-
-    limboSound.volume = .5;
-    limboSound.play();
-
-    huh.volume = .7;
-    huh.play();
-
-    startLimboScene();
-
-}
-
-
-
-    }, 1200);
+    },1200);
 
 });
 
