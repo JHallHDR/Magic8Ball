@@ -28,7 +28,6 @@ const answer = document.getElementById("answer");
 // ----------------------
 
 const allAudio = [
-    intro_church,
     shakeSound,
     angelSound,
     hellSound,
@@ -37,53 +36,37 @@ const allAudio = [
     huh
 ];
 
-let audioUnlocked = false;
 let introStarted = false;
 
-function unlockAudio() {
-
-    if (audioUnlocked) return;
-
-    audioUnlocked = true;
-
-    allAudio.forEach(audio => {
-
-        audio.load();
-
-        audio.muted = true;
-
-        audio.play()
-            .then(() => {
-                audio.pause();
-                audio.currentTime = 0;
-                audio.muted = false;
-            })
-            .catch(() => {});
-
-    });
-
-    intro_church.volume = 0.4;
-}
-
-function startIntro() {
+function firstInteraction() {
 
     if (introStarted) return;
 
     introStarted = true;
 
+    // Start the intro music immediately from the user's tap
+    intro_church.volume = 0.4;
     intro_church.currentTime = 0;
 
-    intro_church.play().catch(() => {});
+    intro_church.play().catch(err => {
+        console.log("Intro music failed:", err);
+    });
 
-    // Show Line 1
+    // Preload the remaining sounds
+    allAudio.forEach(audio => {
+        audio.load();
+    });
+
+    // ----------------------
+    // Intro Sequence
+    // ----------------------
+
     line1.style.opacity = 1;
 
-    // Hide Line 1
     setTimeout(() => {
         line1.style.opacity = 0;
     }, 2500);
 
-    // Show Line 2
     setTimeout(() => {
 
         line1.style.display = "none";
@@ -93,14 +76,12 @@ function startIntro() {
 
     }, 4000);
 
-    // Hide Line 2
     setTimeout(() => {
 
         line2.style.opacity = 0;
 
     }, 6500);
 
-    // Show Line 3
     setTimeout(() => {
 
         line2.style.display = "none";
@@ -110,14 +91,12 @@ function startIntro() {
 
     }, 8000);
 
-    // Hide Line 3
     setTimeout(() => {
 
         line3.style.opacity = 0;
 
     }, 10500);
 
-    // Reveal the Magic 8 Ball
     setTimeout(() => {
 
         intro.style.display = "none";
@@ -135,16 +114,7 @@ function startIntro() {
 
 }
 
-function firstInteraction() {
-
-    unlockAudio();
-
-    startIntro();
-
-}
-
-document.addEventListener("click", firstInteraction, { once: true });
-document.addEventListener("touchstart", firstInteraction, { once: true });
+document.addEventListener("pointerdown", firstInteraction, { once: true });
 
 
 
